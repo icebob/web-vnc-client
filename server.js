@@ -2,7 +2,7 @@
 
 var RFB = require('rfb');
 var io = require('socket.io');
-var Jimp = require("jimp");
+var PNG = require('pngjs').PNG;
 var express = require('express');
 var http = require('http');
 var clients = [];
@@ -10,8 +10,10 @@ var Config = {
    HTTP_PORT: 8090
  };
 
-function encodeFrame(rect, cb) {
+function encodeFrame(rect) {
   var rgb = new Buffer(rect.width * rect.height * 4, 'binary');
+
+  var image = new PNG({ width: rect.width, height: rect.height, inputHasAlpha: true});
 
   for (var i = 0; i < rect.fb.length; i += 4) {
     rgb[i] = rect.fb[i + 2];
@@ -19,19 +21,10 @@ function encodeFrame(rect, cb) {
     rgb[i + 2] = rect.fb[i];
     rgb[i + 3] = 255;//rect.fb[i + 3];
   }
-  /*
-  var image = new Png(rgb, rect.width, rect.height, 'rgb');
-  return image.encodeSync();
-  */
- 
-  var image = new Jimp(rect.width, rect.height);
-  rgb.copy(image.bitmap.data);
 
-  console.log(rect.width, "x", rect.height);
-  image.getBuffer(Jimp.MIME_PNG, function(err, data) {
-    debugger;
-    cb(data);
-  });
+  image.data = rgb;
+  var data = PNG.sync.write(image.pack());
+  return data;
 }
 
 function addEventHandlers(r, socket) {
@@ -73,16 +66,14 @@ function addEventHandlers(r, socket) {
       handleConnection(rect.width, rect.height);
     }
 
-    encodeFrame(rect, function(image) {
-      socket.emit('frame', {
-        x: rect.x,
-        y: rect.y,
-        width: rect.width,
-        height: rect.height,
-        image: image.toString('base64')
-      });
-
+    socket.emit('frame', {
+      x: rect.x,
+      y: rect.y,
+      width: rect.width,
+      height: rect.height,
+      image: encodeFrame(rect).toString('base64')
     });
+
     r.requestUpdate({
       x: 0,
       y: 0,

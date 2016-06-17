@@ -11,8 +11,8 @@
   "dependencies": {
     "connect": "2.8.8",
     "express": "4.12.4",
+    "pngjs": "2.3.1",
     "rfb": "icebob/node-rfb",
-    "jimp": "0.2.24",
     "socket.io": "0.9.17"
   }
 }
