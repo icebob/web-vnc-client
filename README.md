@@ -1,6 +1,7 @@
-js-vnc-demo-project
+web-vnc-client
 ===================
 
-Demo project for the course Advanced JavaScript at FMI
+Support Node ^v4.x.
 
-Node 0.10.32 required.
+
+Forked from https://github.com/mgechev/js-vnc-demo-project
