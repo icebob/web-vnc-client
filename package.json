@@ -5,8 +5,11 @@
     "type": "git",
     "url": "http://github.com/icebob/web-vnc-client"
   },
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
-    "connect": "~.8.8",
+    "connect": "2.8.8",
     "express": "4.12.4",
     "rfb": "icebob/node-rfb",
     "jimp": "0.2.24",
