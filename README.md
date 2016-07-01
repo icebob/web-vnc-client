@@ -1,16 +1,16 @@
 # web-vnc-client
 > VNC client in the browser with NodeJS TCP proxy server
 
-Support Node ^v4.x.
+**Support Node ^v4.x.**
 
-== Install ==
+## Install
 ```bash
 git clone https://github.com/icebob/web-vnc-client.git
 cd web-vnc-client
 npm install
 ```
 
-== Usage ==
+## Usage
 ```bash
 npm start
 ```
