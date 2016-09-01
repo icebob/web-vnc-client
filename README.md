@@ -19,7 +19,7 @@ After it, open `http://localhost:8090` in your browser.
 Forked from https://github.com/mgechev/js-vnc-demo-project
 
 ## License
-fakerator is available under the [MIT license](https://tldrlegal.com/license/mit-license).
+web-vnc-client is available under the [MIT license](https://tldrlegal.com/license/mit-license).
 
 ## Contact
 
